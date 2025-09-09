@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:login_app/pages/menu_page.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -31,12 +32,23 @@ class _AuthScreenState extends State<AuthScreen> {
     }
   }
 
-void _login() async {
+  void _login() async {
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: _emailController.text,
-        password: _passwordController.text,
-      );
+      final userCredential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(
+            email: _emailController.text,
+            password: _passwordController.text,
+          );
+
+      if (userCredential.user != null && mounted) {
+        // 3. Ganti halaman login dengan halaman menu
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => MenuScreen(user: userCredential.user!)
+          ),
+        );
+      }
+
       setState(() {
         _message = "Login Berhasil";
       });

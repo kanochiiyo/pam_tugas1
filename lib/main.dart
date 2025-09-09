@@ -6,5 +6,11 @@ import 'firebase_options.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(MaterialApp(home: AuthScreen()));
+  runApp(
+    MaterialApp(
+      title: 'Login App',
+      initialRoute: '/auth',
+      routes: {'/auth': (context) => const AuthScreen()},
+    ),
+  );
 }
