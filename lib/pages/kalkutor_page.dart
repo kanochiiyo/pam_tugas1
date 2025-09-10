@@ -35,9 +35,7 @@ class _KalkulatorScreenState extends State<KalkulatorScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Kalkulator Simpel"),
-      ),
+      appBar: AppBar(title: const Text("Kalkulator Simpel")),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -58,10 +56,67 @@ class _KalkulatorScreenState extends State<KalkulatorScreen> {
               style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 20),
-            ElevatedButton(onPressed: () => _hitung('+'), child: const Text("Tambah")),
-            ElevatedButton(onPressed: () => _hitung('-'), child: const Text("Kurang")),
-            ElevatedButton(onPressed: () => _hitung('*'), child: const Text("Kali")),
-            ElevatedButton(onPressed: () => _hitung('/'), child: const Text("Bagi")),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () => _hitung('+'),
+                    child: const Text(
+                      "+",
+                      style: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 25),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () => _hitung('-'),
+                    child: const Text(
+                      "-",
+                      style: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () => _hitung('*'),
+                    child: const Text(
+                      "x",
+                      style: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 25),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () => _hitung('/'),
+                    child: const Text(
+                      "/",
+                      style: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ),

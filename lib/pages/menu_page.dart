@@ -27,18 +27,22 @@ class MenuScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Center(
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
               "Selamat Datang!",
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
             ),
             const SizedBox(height: 10),
             Text(
               user.email ?? "Tidak ada email",
               style: const TextStyle(fontSize: 18),
+              textAlign: TextAlign.center,
             ),
             const SizedBox(height: 40),
             ElevatedButton(
@@ -51,6 +55,7 @@ class MenuScreen extends StatelessWidget {
               },
               child: const Text("Profil Kelompok"),
             ),
+            const SizedBox(height: 12),
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).push(
@@ -61,20 +66,22 @@ class MenuScreen extends StatelessWidget {
               },
               child: const Text("Menu Kalkulator"),
             ),
+            const SizedBox(height: 12),
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const GanjilGenap(),
-                  ),
+                  MaterialPageRoute(builder: (context) => const GanjilGenap()),
                 );
               },
               child: const Text("Menu Ganjil Genap"),
             ),
+            const SizedBox(height: 12),
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const OperationPage()),
+                  MaterialPageRoute(
+                    builder: (context) => const OperationPage(),
+                  ),
                 );
               },
               child: const Text("Menu Operasi"),

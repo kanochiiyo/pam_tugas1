@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:login_app/pages/menu_page.dart';
 
@@ -27,7 +26,7 @@ class _AuthScreenState extends State<AuthScreen> {
       });
     } catch (e) {
       setState(() {
-        _message = "Register Gagal $e";
+        _message = "Register Gagal.";
       });
     }
   }
@@ -41,20 +40,15 @@ class _AuthScreenState extends State<AuthScreen> {
           );
 
       if (userCredential.user != null && mounted) {
-        // 3. Ganti halaman login dengan halaman menu
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-            builder: (context) => MenuScreen(user: userCredential.user!)
+            builder: (context) => MenuScreen(user: userCredential.user!),
           ),
         );
       }
-
-      setState(() {
-        _message = "Login Berhasil";
-      });
     } catch (e) {
       setState(() {
-        _message = "Login Gagal $e";
+        _message = "Login Gagal. Email atau password salah.";
       });
     }
   }
@@ -62,25 +56,38 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Tugas 1 PAM")),
-
+      appBar: AppBar(title: const Text("Tugas 1 PAM")),
       body: Padding(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             TextField(
               controller: _emailController,
-              decoration: InputDecoration(labelText: "Email"),
+              decoration: const InputDecoration(labelText: "Email"),
             ),
+            const SizedBox(height: 16),
             TextField(
               controller: _passwordController,
-              decoration: InputDecoration(labelText: "Password"),
+              decoration: const InputDecoration(labelText: "Password"),
+              obscureText: true,
             ),
-            SizedBox(height: 20),
-            ElevatedButton(onPressed: _register, child: Text("Register")),
-            ElevatedButton(onPressed: _login, child: Text("Login")),
-            SizedBox(height: 20),
-            Text(_message),
+            const SizedBox(height: 20),
+            ElevatedButton(onPressed: _register, child: const Text("Register")),
+            const SizedBox(height: 12),
+            ElevatedButton(onPressed: _login, child: const Text("Login")),
+            const SizedBox(height: 20),
+            if (_message.isNotEmpty)
+              Text(
+                _message,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: _message.contains("Berhasil")
+                      ? Colors.green
+                      : Colors.red,
+                ),
+              ),
           ],
         ),
       ),

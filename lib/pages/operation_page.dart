@@ -11,11 +11,7 @@ class OperationPage extends StatefulWidget {
 class _OperationPageState extends State<OperationPage> {
   final TextEditingController _angkaController = TextEditingController();
   String _angkaInput = "";
-
-  // State untuk hasil hitung jumlah digit
   String _jumlahDigitHasil = "";
-
-  // State untuk hasil penjumlahan digit
   String _penjumlahanDigitHasil = "";
   String _prosesPerhitungan = "";
 
@@ -23,10 +19,7 @@ class _OperationPageState extends State<OperationPage> {
     final String inputText = _angkaController.text;
 
     if (inputText.isNotEmpty) {
-      // --- Logika untuk Menghitung Jumlah Digit ---
       int jumlahDigit = inputText.length;
-
-      // --- Logika untuk Menjumlahkan Digit ---
       int totalPenjumlahan = 0;
       List<String> digitList = [];
       for (int i = 0; i < inputText.length; i++) {
@@ -35,7 +28,6 @@ class _OperationPageState extends State<OperationPage> {
         digitList.add(inputText[i]);
       }
 
-      // Update state untuk semua hasil
       setState(() {
         _angkaInput = inputText;
         _jumlahDigitHasil = "$jumlahDigit digit";
@@ -56,18 +48,15 @@ class _OperationPageState extends State<OperationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Kalkulator Angka")),
-      body: SingleChildScrollView(
+      appBar: AppBar(title: const Text("Operasi Angka")),
+      body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             TextField(
               controller: _angkaController,
-              decoration: const InputDecoration(
-                labelText: "Masukkan Angka",
-                border: OutlineInputBorder(),
-              ),
+              decoration: const InputDecoration(labelText: "Masukkan Angka"),
               keyboardType: TextInputType.number,
               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             ),
@@ -76,58 +65,40 @@ class _OperationPageState extends State<OperationPage> {
               onPressed: _lakukanPerhitungan,
               child: const Text("Hitung"),
             ),
-            const SizedBox(height: 30),
+            const SizedBox(height: 20),
+
+            // Garis pemisah antara input dan hasil
+            if (_angkaInput.isNotEmpty) const Divider(thickness: 1),
+
+            const SizedBox(height: 20), 
 
             // Bagian untuk menampilkan hasil jika ada input
             if (_angkaInput.isNotEmpty)
-              Card(
-                elevation: 4,
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Hasil untuk angka '$_angkaInput':",
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const Divider(height: 20),
-                      // Hasil 1: Jumlah Digit
-                      const Text(
-                        "1. Jumlah Digit",
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      Text(
-                        _jumlahDigitHasil,
-                        style: const TextStyle(fontSize: 22),
-                      ),
-                      const SizedBox(height: 20),
-
-                      // Hasil 2: Penjumlahan Digit
-                      const Text(
-                        "2. Penjumlahan Setiap Digit",
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      Text(
-                        _prosesPerhitungan,
-                        style: TextStyle(fontSize: 16, color: Colors.grey[700]),
-                      ),
-                      Text(
-                        "= $_penjumlahanDigitHasil",
-                        style: const TextStyle(fontSize: 22),
-                      ),
-                    ],
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Hasil untuk '$_angkaInput':",
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
+                  const SizedBox(height: 16),
+
+                  // Hasil 1: Jumlah Digit
+                  Text(
+                    "Jumlah Digit: $_jumlahDigitHasil",
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                  const SizedBox(height: 12),
+
+                  // Hasil 2: Penjumlahan Digit
+                  Text(
+                    "Penjumlahan Digit: $_prosesPerhitungan = $_penjumlahanDigitHasil",
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                ],
               ),
           ],
         ),

@@ -40,10 +40,14 @@ class _GanjilGenapState extends State<GanjilGenap> {
               keyboardType: TextInputType.number,
             ),
             const SizedBox(height: 20),
-            Text(
-              "${_angkaController.text} adalah $_hasil",
-              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
+            if (_hasil.isNotEmpty)
+              Text(
+                "${_angkaController.text} adalah $_hasil",
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () => _hitung(),
