@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:login_app/pages/kalkutor_page.dart';
+import 'package:login_app/pages/odd_even.dart';
+import 'package:login_app/pages/operation_page.dart';
 import 'package:login_app/pages/profil_kelompok.dart';
 
 class MenuScreen extends StatelessWidget {
@@ -58,6 +60,24 @@ class MenuScreen extends StatelessWidget {
                 );
               },
               child: const Text("Menu Kalkulator"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const GanjilGenap(),
+                  ),
+                );
+              },
+              child: const Text("Menu Ganjil Genap"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const OperationPage()),
+                );
+              },
+              child: const Text("Menu Operasi"),
             ),
           ],
         ),
