@@ -7,7 +7,11 @@ class ProfilKelompok extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Menu Utama")),
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+      appBar: AppBar(
+        title: const Text("Menu Utama"),
+        backgroundColor: const Color(0xFFF784C5),
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -21,20 +25,18 @@ class ProfilKelompok extends StatelessWidget {
               "1. Zeva Mila Sabrina (124230043)",
               style: TextStyle(fontSize: 20),
             ),
-              Text(
+            Text(
               "2. Najwa Egi Fitriyani (124230058)",
               style: TextStyle(fontSize: 20),
             ),
-              Text(
+            Text(
               "3. Andini Andaresta (124230084)",
               style: TextStyle(fontSize: 20),
             ),
-              Text(
+            Text(
               "4. Rake Putri Cahyani (124230107)",
               style: TextStyle(fontSize: 20),
             ),
-
-        
           ],
         ),
       ),

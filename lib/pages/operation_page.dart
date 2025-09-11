@@ -17,20 +17,33 @@ class _OperationPageState extends State<OperationPage> {
 
   void _lakukanPerhitungan() {
     final String inputText = _angkaController.text;
+    final String cleanedInput = inputText
+        .replaceAll('.', '')
+        .replaceAll(',', '');
 
-    if (inputText.isNotEmpty) {
-      int jumlahDigit = inputText.length;
+    //jika inputnya tdk kosong maka jalankan if
+    if (cleanedInput.isNotEmpty) {
+      // menghitung panjang digit dgn cara cari tau lengthnya
+      int jumlahDigit = cleanedInput.length;
+      // set total ke 0 dulu
       int totalPenjumlahan = 0;
+      // bikin list atau array buat nampung list angkanya
       List<String> digitList = [];
-      for (int i = 0; i < inputText.length; i++) {
-        int digit = int.tryParse(inputText[i]) ?? 0;
+      // perulangan yg jalan untuk mengubah tipe data ke int dan menghitung jumlahnya berapa
+      for (int i = 0; i < cleanedInput.length; i++) {
+        // ngubah tipe data tiap digit
+        int digit = int.tryParse(cleanedInput[i]) ?? 0;
+        // jumlahkan satu per satu
         totalPenjumlahan += digit;
-        digitList.add(inputText[i]);
+        // masukkan tiap karakter yg diinput ke dalam array digitlist
+        digitList.add(cleanedInput[i]);
       }
 
       setState(() {
-        _angkaInput = inputText;
+        _angkaInput = cleanedInput;
         _jumlahDigitHasil = "$jumlahDigit digit";
+        // menampilkan tiap isi array ditambah " + "
+        // misal isi arraynya [3,4,5] maka 3 + 4 + 5
         _prosesPerhitungan = digitList.join(' + ');
         _penjumlahanDigitHasil = "$totalPenjumlahan";
       });
@@ -48,7 +61,11 @@ class _OperationPageState extends State<OperationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Operasi Angka")),
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+      appBar: AppBar(
+        title: const Text("Operasi Angka"),
+        backgroundColor: const Color(0xFFF784C5),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -58,10 +75,14 @@ class _OperationPageState extends State<OperationPage> {
               controller: _angkaController,
               decoration: const InputDecoration(labelText: "Masukkan Angka"),
               keyboardType: TextInputType.number,
-              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              //inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             ),
             const SizedBox(height: 20),
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color.fromARGB(255, 251, 198, 228),
+                foregroundColor: Colors.black,
+              ),
               onPressed: _lakukanPerhitungan,
               child: const Text("Hitung"),
             ),
@@ -70,7 +91,7 @@ class _OperationPageState extends State<OperationPage> {
             // Garis pemisah antara input dan hasil
             if (_angkaInput.isNotEmpty) const Divider(thickness: 1),
 
-            const SizedBox(height: 20), 
+            const SizedBox(height: 20),
 
             // Bagian untuk menampilkan hasil jika ada input
             if (_angkaInput.isNotEmpty)

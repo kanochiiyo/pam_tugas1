@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:login_app/pages/menu_page.dart';
 
@@ -10,45 +9,35 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
-  final TextEditingController _emailController = TextEditingController();
+  // remote untuk ngolah text??
+  final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   String _message = "";
 
-  void _register() async {
-    try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: _emailController.text,
-        password: _passwordController.text,
-      );
-      setState(() {
-        _message = "Register Berhasil";
-      });
-    } catch (e) {
-      setState(() {
-        _message = "Register Gagal.";
-      });
-    }
-  }
+  // hardcode data login
+  final String username = "admin";
+  final String password = "user";
 
-  void _login() async {
-    try {
-      final userCredential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(
-            email: _emailController.text,
-            password: _passwordController.text,
-          );
-
-      if (userCredential.user != null && mounted) {
+  void _login() {
+    // pengecekan input thd data hardcode
+    if (_usernameController.text.isNotEmpty) {
+      if ((_usernameController.text == username) &&
+          (_passwordController.text == password)) {
+            // pindah ke halaman menuscreen dan hapus 1 halaman/riwayat sblmnya
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-            builder: (context) => MenuScreen(user: userCredential.user!),
+            builder: (context) => MenuScreen(user: _usernameController.text),
           ),
         );
+      } else {
+        setState(() {
+          _message = "Login gagal. Username atau password salah.";
+        });
       }
-    } catch (e) {
+    } else {
       setState(() {
-        _message = "Login Gagal. Email atau password salah.";
+        _message = "Username atau password kosong.";
       });
     }
   }
@@ -56,16 +45,22 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Tugas 1 PAM")),
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+      appBar: AppBar(
+        title: const Text('Tugas 1', style: TextStyle(fontSize: 20)),
+        backgroundColor: const Color(0xFFF784C5),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
+          // ngetengahin kayak justify content center
           mainAxisAlignment: MainAxisAlignment.center,
+          // ngepanjangin uk buttonnya karena elevated button itu panjangnya sesuai dgn isi konten
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             TextField(
-              controller: _emailController,
-              decoration: const InputDecoration(labelText: "Email"),
+              controller: _usernameController,
+              decoration: const InputDecoration(labelText: "Username"),
             ),
             const SizedBox(height: 16),
             TextField(
@@ -74,19 +69,20 @@ class _AuthScreenState extends State<AuthScreen> {
               obscureText: true,
             ),
             const SizedBox(height: 20),
-            ElevatedButton(onPressed: _register, child: const Text("Register")),
-            const SizedBox(height: 12),
-            ElevatedButton(onPressed: _login, child: const Text("Login")),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color.fromARGB(255, 251, 198, 228),
+                foregroundColor: Colors.black,
+              ),
+              onPressed: _login,
+              child: const Text("Login"),
+            ),
             const SizedBox(height: 20),
             if (_message.isNotEmpty)
               Text(
                 _message,
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: _message.contains("Berhasil")
-                      ? Colors.green
-                      : Colors.red,
-                ),
+                style: TextStyle(color: Colors.red),
               ),
           ],
         ),

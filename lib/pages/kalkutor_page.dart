@@ -13,6 +13,7 @@ class _KalkulatorScreenState extends State<KalkulatorScreen> {
   String _hasil = "0";
 
   void _hitung(String operasi) {
+    // ngeganti tipe data karena textfield isinya string
     final double angka1 = double.tryParse(_angka1Controller.text) ?? 0;
     final double angka2 = double.tryParse(_angka2Controller.text) ?? 0;
     double hasilPerhitungan = 0;
@@ -35,7 +36,11 @@ class _KalkulatorScreenState extends State<KalkulatorScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Kalkulator Simpel")),
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+      appBar: AppBar(
+        title: const Text("Kalkulator Simpel"),
+        backgroundColor: const Color(0xFFF784C5),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -61,6 +66,10 @@ class _KalkulatorScreenState extends State<KalkulatorScreen> {
               children: [
                 Expanded(
                   child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color.fromARGB(255, 251, 198, 228),
+                      foregroundColor: Colors.black,
+                    ),
                     onPressed: () => _hitung('+'),
                     child: const Text(
                       "+",
@@ -74,6 +83,10 @@ class _KalkulatorScreenState extends State<KalkulatorScreen> {
                 const SizedBox(width: 25),
                 Expanded(
                   child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color.fromARGB(255, 251, 198, 228),
+                      foregroundColor: Colors.black,
+                    ),
                     onPressed: () => _hitung('-'),
                     child: const Text(
                       "-",
@@ -92,6 +105,10 @@ class _KalkulatorScreenState extends State<KalkulatorScreen> {
               children: [
                 Expanded(
                   child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color.fromARGB(255, 251, 198, 228),
+                      foregroundColor: Colors.black,
+                    ),
                     onPressed: () => _hitung('*'),
                     child: const Text(
                       "x",
@@ -105,6 +122,10 @@ class _KalkulatorScreenState extends State<KalkulatorScreen> {
                 const SizedBox(width: 25),
                 Expanded(
                   child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color.fromARGB(255, 251, 198, 228),
+                      foregroundColor: Colors.black,
+                    ),
                     onPressed: () => _hitung('/'),
                     child: const Text(
                       "/",
